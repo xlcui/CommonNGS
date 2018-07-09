@@ -1,37 +1,35 @@
-## Welcome to GitHub Pages
+## Common problems in NGS data generation and analysis
 
-You can use the [editor on GitHub](https://github.com/xlcui/CommonNGS/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+### Contamination
+* [At least 7% of 1000 Genomes Project samples were contaminated with Mycoplasma.](https://biodatamining.biomedcentral.com/articles/10.1186/1756-0381-7-3)
+* [About 11% of NCBI SRA rodent and primate RNA-Seq samples were contaminated with Mycoplasma.](https://academic.oup.com/nar/article/43/5/2535/2453278)
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+>* Contamination detection should be performed before library construction to avoid a waste of time and money.
+>* Systematic contamination detection pipeline should also be performed once the data come back.
 
-### Markdown
+### Sequencing depth
+* [Different library types require different sequencing depth.](https://www.nature.com/articles/nrg3642) New sequencing methods should be evaluated by saturation curve.
+* [Sequencing depth also depends on the purpose.](https://www.nature.com/articles/nmeth.3152)
+  * ENCODE recommends that each replicate of WGBS should have 30x coverage;
+  * For DMR identification, sequencing at levels higher than 5-15x leads to wasted resources that would be better spent on an increased number of biological replicates.
+  * If the goal is primarily to identify long DMRs with large methylation differences, 1-2x per sample is acceptable. 
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+### Quality control of enrichment
+* [Lorenz curve](https://en.wikipedia.org/wiki/Lorenz_curve) can be used to evaluate the enrichment strength.
+* For DNA-based enrichment, [deeptools](https://deeptools.readthedocs.io/en/develop/content/tools/plotFingerprint.html) can be used.
+* For RNA-based enrichment, I have written a simple script to normalize different expression levels using the paired Input sample. Please refer to [MENG](https://dracarysking.github.io/MENG/) for more information.
 
-```markdown
-Syntax highlighted code block
+### Different genome and annotation versions
+* There are different reference assemblies for the same species. Be sure to use the currect one. Coordinates from different genome assemblies can be transformed using [LiftOver](https://genome.ucsc.edu/cgi-bin/hgLiftOver) or [CrossMap](http://crossmap.sourceforge.net/).
+* There are also different sources of gene annotation, with [different sensitivity and specificity](https://genomebiology.biomedcentral.com/articles/10.1186/gb-2006-7-s1-s2).
 
-# Header 1
-## Header 2
-### Header 3
+### Statistics
+* Simple fold change will lead to enrichment of lowly expressed genes because of their larger variances. Be sure to use statistics such as negative binomial distribution in [DESeq2](http://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html) to find the differences.
 
-- Bulleted
-- List
+### Excel text format
+* [Using Excel to store the final results with default format will affect at least 30 gene names which will be converted to date format and are irreversible.](https://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-5-80)
 
-1. Numbered
-2. List
 
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/xlcui/CommonNGS/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+### OS dependent line breaks
+* Dos uses `\r\n` for line breaks, while Linux uses '\n' for line breaks, which can lead to mistakes when files are transferred between different OS.
+* `dos2unix` and `unix2dos` can be used easily to solve the problem.
