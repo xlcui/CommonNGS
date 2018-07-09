@@ -3,9 +3,8 @@
 ### Contamination
 * [At least 7% of 1000 Genomes Project samples were contaminated with Mycoplasma.](https://biodatamining.biomedcentral.com/articles/10.1186/1756-0381-7-3)
 * [About 11% of NCBI SRA rodent and primate RNA-Seq samples were contaminated with Mycoplasma.](https://academic.oup.com/nar/article/43/5/2535/2453278)
-
->* Contamination detection should be performed before library construction to avoid a waste of time and money.
->* Systematic contamination detection pipeline should also be performed once the data come back.
+* Contamination detection should be performed before library construction to avoid a waste of time and money.
+* Systematic contamination detection pipeline should also be performed once the data come back.
 
 ### Sequencing depth
 * [Different library types require different sequencing depth.](https://www.nature.com/articles/nrg3642) New sequencing methods should be evaluated by saturation curve.
