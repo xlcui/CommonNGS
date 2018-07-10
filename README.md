@@ -1,4 +1,3 @@
-## Common problems in NGS data generation and analysis
 
 ### Contamination
 * [At least 7% of 1000 Genomes Project samples were contaminated with Mycoplasma.](https://biodatamining.biomedcentral.com/articles/10.1186/1756-0381-7-3)
